@@ -1,29 +1,29 @@
 from langchain_ollama import ChatOllama
 
+
 llm = ChatOllama(
     model="qwen3:4b-instruct",
-    temperature = 0)
+    temperature=0
+)
 
-def get_llm_response(query,intent):
+def process_customer_query(query):
 
-    prompt = f"Customer intent: {intent}\nCustomer query: {query}\nRespond appropriately to the customer's intent."
-    response = llm.invoke(prompt)
-    
-    return response.content
-
-def classify_intent(query):
     prompt = f"""
-    Classify the customer query into exactly one category:
+    You are a customer support assistant.
+
+    Classify the customer query into exactly one intent:
     order_status
     cancel_order
     refund_or_complaint
     general_faq
 
-    Return only the category name.
+    Return your answer in exactly this format:
+    Intent: <intent>
+    Response: <customer support response>
 
     Customer query: {query}
     """
 
-    response = llm.invoke(prompt)
+    result = llm.invoke(prompt)
 
-    return response.content.strip()
+    return result.content.strip()
