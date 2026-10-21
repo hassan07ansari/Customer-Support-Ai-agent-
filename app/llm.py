@@ -4,10 +4,11 @@ llm = ChatOllama(
     model="qwen3:4b-instruct",
     temperature = 0)
 
-def get_llm_response(query):
+def get_llm_response(query,intent):
 
-    response = llm.invoke(query)
-
+    prompt = f"Customer intent: {intent}\nCustomer query: {query}\nRespond appropriately to the customer's intent."
+    response = llm.invoke(prompt)
+    
     return response.content
 
 def classify_intent(query):
