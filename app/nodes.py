@@ -27,3 +27,7 @@ def refund_or_complaint_node(state: SupportState):
     return {"response": state["response"]}
 
 
+def general_faq_node(state: SupportState):
+    return {"response": state["response"]}
+
+
