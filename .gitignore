@@ -14,3 +14,8 @@ venv/
 # IDE and OS files
 .vscode/
 .DS_Store
+
+.venv/
+.env
+__pycache__/
+*.pyc

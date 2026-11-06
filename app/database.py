@@ -1,4 +1,6 @@
 import psycopg
+from psycopg.rows import dict_row
+
 
 def get_connection():
     connection = psycopg.connect(
@@ -6,22 +8,23 @@ def get_connection():
         port = 5432,
         dbname = 'Customer_Support_db',
         user = 'postgres',
-        password = 'Hassan07ansari@'
+        password = '*******',
+        row_factory= dict_row
     )
 
     return connection
 
 def get_order_details(order_number):
 
-    conn = get_connection()
-    cursor = conn.cursor()
+    with get_connection() as conn:
+        with conn.cursor() as cursor:
 
-    cursor.execute("select * from orders where order_number=%s",(order_number,))
+            cursor.execute("select * from orders where order_number=%s",(order_number,))
 
-    order = cursor.fetchone()
+            order = cursor.fetchone()
+            return order
 
-    cursor.close()
 
-    conn.close()
-
-    return order
+if __name__ == "__main__":
+    order = get_order_details("ORD-100001")
+    print(order)
