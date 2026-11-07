@@ -7,25 +7,35 @@ query = get_customer_query()
 
 initial_state  = {
     "query" : query,
+    "current_message" : query,
     "intent" : "",
-    "response": ""
+    "response": "",
+    "awaiting_order_number":False
 }
 
 
 
 start_time = time.perf_counter()
 
-result = graph.invoke(initial_state)
+state = initial_state
+
+while True:
+
+    result = graph.invoke(state)
+
+    print(f"\nCustomer Support Response:\n{result['response']}")
+
+    if not result["awaiting_order_number"]:
+        break
+
+    customer_reply = input("\nYou: ")
+
+    state = {
+        **result,
+        "current_message": customer_reply
+    }
 
 end_time = time.perf_counter()
 
-intent = result["intent"]
-response = result["response"]
-
-print(f"\nDetected intent: {intent}")
-print(f"\nCustomer Support Response:\n{response}")
+print(f"\nDetected intent: {result['intent']}")
 print(f"\nTotal workflow latency: {end_time - start_time:.2f} seconds")
-
-
-
-

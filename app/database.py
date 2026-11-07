@@ -8,7 +8,7 @@ def get_connection():
         port = 5432,
         dbname = 'Customer_Support_db',
         user = 'postgres',
-        password = '*******',
+        password = 'Hassan07ansari@',
         row_factory= dict_row
     )
 

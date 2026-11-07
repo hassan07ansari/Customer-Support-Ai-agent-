@@ -34,6 +34,13 @@ def refund_or_complaint_node(state: SupportState):
 def general_faq_node(state: SupportState):
     return {"response": state["response"]}
 
+def request_order_number_node(state:SupportState):
+
+    return {
+        "response" : "Please provide your order number so i can check its status",
+        "awaiting_order_number" : True
+    }
+
 def process_order_number_node(state: SupportState):
 
     order_number = state["current_message"].strip()
