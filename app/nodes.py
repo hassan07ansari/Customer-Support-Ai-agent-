@@ -22,25 +22,6 @@ def classify_intent_node(state:SupportState):
 def cancel_order_node(state: SupportState):
     return {"response": state["response"]}
 
-
-def order_status_node(state: SupportState):
-    return {"response": state["response"]}
-
-
-def refund_or_complaint_node(state: SupportState):
-    return {"response": state["response"]}
-
-
-def general_faq_node(state: SupportState):
-    return {"response": state["response"]}
-
-def request_order_number_node(state:SupportState):
-
-    return {
-        "response" : "Please provide your order number so i can check its status",
-        "awaiting_order_number" : True
-    }
-
 def process_order_number_node(state: SupportState):
 
     order_number = state["current_message"].strip()
@@ -58,6 +39,39 @@ def process_order_number_node(state: SupportState):
         "order_details": order_details,
         "awaiting_order_number": False
     }
+
+
+
+def order_status_node(state: SupportState):
+    order = state["order_details"]
+
+    response = f"""
+    Here are your order details:
+
+    Order Number: {order['order_number']}
+    Order Status: {order['status']}
+    Order Date: {order['placed_at']}
+    Expected Delivery: {order['expected_delivery_date']}
+    Total Amount: ₹{order['total_inr']}
+    """
+
+    return {"response": response}
+
+
+def refund_or_complaint_node(state: SupportState):
+    return {"response": state["response"]}
+
+
+def general_faq_node(state: SupportState):
+    return {"response": state["response"]}
+
+def request_order_number_node(state:SupportState):
+
+    return {
+        "response" : "Please provide your order number so i can check its status",
+        "awaiting_order_number" : True
+    }
+
 
 
 
