@@ -24,6 +24,29 @@ def get_order_details(order_number):
             order = cursor.fetchone()
             return order
 
+def get_shipment_details(order_number):
+    with get_connection() as conn:
+        with conn.cursor() as cursor:
+
+            cursor.execute(
+                """
+                SELECT 
+                    s.carrier,
+                    s.tracking_number,
+                    s.status,
+                    s.estimated_delivery_date,
+                    s.last_known_location
+                From orders o 
+                join shipments s
+                    ON o.order_id = s.order_id
+                Where o.order_number = %s
+                """,
+                (order_number,) 
+                 
+            )
+
+            shipment = cursor.fetchone()
+            return shipment
 
 if __name__ == "__main__":
     order = get_order_details("ORD-100001")

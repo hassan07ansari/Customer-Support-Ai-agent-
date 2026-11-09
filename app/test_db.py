@@ -1,4 +1,6 @@
 from database import get_connection
+from database import get_shipment_details
+
 
 try:
     conn = get_connection()
