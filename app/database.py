@@ -48,6 +48,3 @@ def get_shipment_details(order_number):
             shipment = cursor.fetchone()
             return shipment
 
-if __name__ == "__main__":
-    order = get_order_details("ORD-100001")
-    print(order)
