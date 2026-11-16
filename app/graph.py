@@ -14,10 +14,11 @@ def route_customer_message(state:SupportState):
 
     return 'classify_intent'
 
-def route_intent(state:SupportState):
-    if state["intent"] == "order_status" and not state.get("order_number"):
+def route_intent(state: SupportState):
+
+    if state["intent"] in ["order_status", "cancel_order"] and not state.get("order_number"):
         return "request_order_number"
-    
+
     return state["intent"]
 
 def route_after_order_number(state: SupportState):
